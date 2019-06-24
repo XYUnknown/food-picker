@@ -94,7 +94,6 @@ def run():
             print('thanks for playing with me meow, bye QwQ')
         else:
             print('meow... unrecognised command.. please try again meow')
-
-#get_cuisines()
+            
+# run program
 run()
-#get_restaurants(60)
