@@ -44,6 +44,9 @@ def get_restaurants(cuisine_id):
     for r in data['restaurants']:
         restaurant = {'name': r['restaurant']['name'], 'address': r['restaurant']['location']['address'], 'rating': r['restaurant']['user_rating']['aggregate_rating']}
         list.append(restaurant)
+    if len(list) == 0:
+        print('meow.. no restaurant found...')
+        return
     index = random.randint(0, len(list)-1)
     choice = list[index]
     print('the chosen restaurant for you meow: ')
@@ -52,6 +55,7 @@ def get_restaurants(cuisine_id):
     print('all the options for you: ')
     for r in list:
         print(r)
+    # unsued return value
     return list
 
 def run():
@@ -87,13 +91,12 @@ def run():
             try:
                 id = int(input('please specify cuisine id: '))
                 get_restaurants(id)
-            except Error:
+            except:
                 print('meow... unrecognised id..')
-                exit(1)
         elif cmd == 'q':
             print('thanks for playing with me meow, bye QwQ')
         else:
             print('meow... unrecognised command.. please try again meow')
-            
+
 # run program
 run()
