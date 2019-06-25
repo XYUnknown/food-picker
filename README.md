@@ -9,4 +9,4 @@ This cat is current facing the daily food choosing problem. This program helps t
 
 `$ cd food-picker`
 
-`$ python food-picker.py` or `$ python3 food-picker.py`
+`$ python food_picker.py` or `$ python3 food_picker.py`
