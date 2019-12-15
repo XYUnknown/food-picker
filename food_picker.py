@@ -37,8 +37,29 @@ def get_cuisines():
     for cuisine in data['cuisines']:
         print(cuisine['cuisine']['cuisine_name'] + ': ' + str(cuisine['cuisine']['cuisine_id']))
 
+def get_default_restaurants():
+    url = 'https://developers.zomato.com/api/v2.1/search?count=10&lat=' + str(lat) + '&lon=' + str(long) + '&sort=real_distance'
+    data = parse_response(url)
+    list = []
+    for r in data['restaurants']:
+        restaurant = {'name': r['restaurant']['name'], 'address': r['restaurant']['location']['address'], 'rating': r['restaurant']['user_rating']['aggregate_rating']}
+        list.append(restaurant)
+    if len(list) == 0:
+        print('meow.. no restaurant found...')
+        return
+    index = random.randint(0, len(list)-1)
+    choice = list[index]
+    print('the chosen restaurant for you meow: ')
+    print(choice)
+    print('enjoy meow QwQ')
+    print('all the options for you: ')
+    for r in list:
+        print(r)
+    # unsued return value
+    return list
+
 def get_restaurants(cuisine_id):
-    url = 'https://developers.zomato.com/api/v2.1/search?count=10&lat=55.865674&lon=-4.288961&cuisines='+ str(cuisine_id) + '&sort=real_distance'
+    url = 'https://developers.zomato.com/api/v2.1/search?count=10&lat=' + str(lat) + '&lon=' + str(long) + '&cuisines='+ str(cuisine_id) + '&sort=real_distance'
     data = parse_response(url)
     list = []
     for r in data['restaurants']:
@@ -63,6 +84,7 @@ def run():
     while(cmd != 'q'):
         cmd = input("meow~ please specify your options: \
         \n[list]: list cuisine IDs \
+        \n[all]: default search \
         \n[jap]: choosing a japanese restaurant \
         \n[korean]: choosing a korean restaurant \
         \n[burger]: find a burger place \
@@ -87,6 +109,8 @@ def run():
             get_restaurants(82)
         elif cmd == 'spanish':
             get_restaurants(89)
+        elif cmd == 'all':
+            get_default_restaurants()
         elif cmd == 'o':
             try:
                 id = int(input('please specify cuisine id: '))
